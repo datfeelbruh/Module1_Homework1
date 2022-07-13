@@ -4,15 +4,16 @@ import java.util.regex.Pattern;
 //Экспертный уровень
 //Задача №1
 public class Homework1_Expert {
-    final static String CLIENT_DATA1 = "<client>(Какие то данные)<data>79991113344;test@yandex.ru;Иванов Иван Иванович</data></client>";
-    final static String CLIENT_DATA2 = "<client>(Какие то данные)</data></client>";
-    final static String CLIENT_DATA3 = "<client>(Какие то данные)<data>Иванов Иван Иванович;79991113344</data></client>";
-    final static String ALL_DATA_PATTERN = "(<data>(.*)</data>)";
-    final static String PHONE_PATTERN = "\\d*";
-    final static String EMAIL_PATTERN = "[a-z]+@[a-z]+.[a-z]+";
-    final static String NAMES_PATTERN = "([А-Я][а-я]* ?[А-Я][а-я]* ?[А-Я][а-я]*)";
-    final static String DELIMITER = ";";
-    static String matchedData = "";
+    private final static String CLIENT_DATA1 = "<client>(Какие то данные)<data>79991113344;test@yandex.ru;Иванов Иван Иванович</data></client>";
+    private final static String CLIENT_DATA2 = "<client>(Какие то данные)</data></client>";
+    private final static String CLIENT_DATA3 = "<client>(Какие то данные)<data>Иванов Иван Иванович;79991113344</data></client>";
+    private final static String ALL_DATA_PATTERN = "(<data>(.*)</data>)";
+    private final static String PHONE_PATTERN = "\\d*";
+    private final static String EMAIL_PATTERN = "[a-z]+@[a-z]+.[a-z]+";
+    private final static String NAMES_PATTERN = "([А-Я][а-я]* ?[А-Я][а-я]* ?[А-Я][а-я]*)";
+    private final static String DELIMITER = ";";
+    private final static String LAST_DELIMITER = ";$";
+    private static String matchedData = "";
 
     public static void main(String[] args) {
         String result1 = hidePersonalData(CLIENT_DATA1);
@@ -45,24 +46,24 @@ public class Homework1_Expert {
                 }
             }
         }
-        String hiddenData = hidden.toString().replaceAll(";$", "");
+        String hiddenData = hidden.toString().replaceAll(LAST_DELIMITER, "");
         return clientData.replaceAll(matchedData, hiddenData);
     }
 
-    public static void hidePhoneNumber(String data, StringBuilder hiddenData) {
+    private static void hidePhoneNumber(String data, StringBuilder hiddenData) {
         hiddenData.append(data, 0, 4);
         hiddenData.append("*".repeat(3));
         hiddenData.append( data.substring(7));
         hiddenData.append(DELIMITER);
     }
 
-    public static boolean isPhoneNumber(String data) {
+    private static boolean isPhoneNumber(String data) {
         Pattern pattern = Pattern.compile(PHONE_PATTERN);
         Matcher matcher = pattern.matcher(data);
         return matcher.matches();
     }
 
-    public static void hideEmail(String data, StringBuilder hiddenData) {
+    private static void hideEmail(String data, StringBuilder hiddenData) {
         int indexOfMailChar = data.indexOf("@");
         int indexOfDot = data.indexOf(".");
         hiddenData.append(data, 0, indexOfMailChar - 1);
@@ -73,13 +74,13 @@ public class Homework1_Expert {
         hiddenData.append(DELIMITER);
     }
 
-    public static boolean isEmail(String data) {
+    private static boolean isEmail(String data) {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(data);
         return matcher.matches();
     }
 
-    public static void hideNames(String data, StringBuilder hiddenData) {
+    private static void hideNames(String data, StringBuilder hiddenData) {
         hiddenData.append(data.charAt(0));
         hiddenData.append("*".repeat(data.indexOf(" ") - 2));
         hiddenData.append(data.charAt(data.indexOf(" ") - 1));
@@ -89,7 +90,7 @@ public class Homework1_Expert {
         hiddenData.append(DELIMITER);
     }
 
-    public static boolean isNames(String data) {
+    private static boolean isNames(String data) {
         Pattern pattern = Pattern.compile(NAMES_PATTERN);
         Matcher matcher = pattern.matcher(data);
         return matcher.matches();
