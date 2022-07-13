@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 //Задача №1
 public class Homework1_Expert {
     private final static String CLIENT_DATA1 = "<client>(Какие то данные)<data>79991113344;test@yandex.ru;Иванов Иван Иванович</data></client>";
-    private final static String CLIENT_DATA2 = "<client>(Какие то данные)</data></client>";
+    private final static String CLIENT_DATA2 = "<client>(Какие то данные)<data></data></client>";
     private final static String CLIENT_DATA3 = "<client>(Какие то данные)<data>Иванов Иван Иванович;79991113344</data></client>";
     private final static String ALL_DATA_PATTERN = "(<data>(.*)</data>)";
     private final static String PHONE_PATTERN = "\\d*";
@@ -34,7 +34,7 @@ public class Homework1_Expert {
             matchedData = matcher.group(2);
         }
         if (matchedData.length() <= 1) {
-            hidden.append(matchedData);
+            return clientData;
         } else {
             for (String data: matchedData.split(DELIMITER)) {
                 if (isPhoneNumber(data)) {
