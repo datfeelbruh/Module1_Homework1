@@ -28,6 +28,8 @@ public class Homework1 {
         // Задача №1
         String text = "234";
         String someText = "some_text";
+        int number = Integer.parseInt(text);
+        int numberPlusSomeText = number + someText.length();
 
         //Задача №2
         int a = 3;
