@@ -15,8 +15,8 @@ class Homework2Expert {
 
     public static void main(String[] args) {
         Map<Integer, Map<String, String[]>> data = GeneratorExpertHomework.getData();
-        for (Map.Entry<Integer, Map<String, String[]>> entry : data.entrySet()) {
-            Map<String, String[]> regionInOut = entry.getValue();
+        for (Map.Entry<Integer, Map<String, String[]>> dataEntry : data.entrySet()) {
+            Map<String, String[]> regionInOut = dataEntry.getValue();
             getRegionAutoNumber(regionInOut);
         }
         System.out.println(SPECIAL_CAR_NUMBERS.size());
