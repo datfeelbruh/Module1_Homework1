@@ -73,11 +73,11 @@ public class Homework2 {
 
     // Задача №2
     public static void childrenGoesTo(int age) {
-        if (age <= 6) {
+        if (age < 6) {
             System.out.println("Пошел в сад");
-        } else if (age <= 11) {
+        } else if (age < 11) {
             System.out.println("Пошел в младшую школу");
-        } else if (age <= 17) {
+        } else if (age < 17) {
             System.out.println("Пошел в среднюю школу");
         } else {
             System.out.println("Пошел в университет");

@@ -1,7 +1,5 @@
 package Homework2.expert;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +9,7 @@ import java.util.regex.Pattern;
 
 class Homework2Expert {
     private static final Set<String> SPECIAL_CAR_NUMBERS = new HashSet<>();
-    private static final String UNIQ_NUMBER_PATTERN = "^М\\d{3}АВ\\d{2,3}";
+    private static final String SPECIAL_NUMBER_PATTERN = "^М\\d{3}АВ\\d{2,3}";
 
     public static void main(String[] args) {
         Map<Integer, Map<String, String[]>> data = GeneratorExpertHomework.getData();
@@ -19,6 +17,7 @@ class Homework2Expert {
             Map<String, String[]> regionInOut = dataEntry.getValue();
             getRegionAutoNumber(regionInOut);
         }
+        System.out.println(SPECIAL_CAR_NUMBERS);
         System.out.println(SPECIAL_CAR_NUMBERS.size());
     }
 
@@ -31,7 +30,7 @@ class Homework2Expert {
 
     private static void getSpecialCarNumbers(String[] data) {
         for (String number : data) {
-            Pattern pattern = Pattern.compile(UNIQ_NUMBER_PATTERN);
+            Pattern pattern = Pattern.compile(SPECIAL_NUMBER_PATTERN);
             Matcher matcher = pattern.matcher(number);
             while (matcher.find()) {
                 String carNumber = matcher.group();
