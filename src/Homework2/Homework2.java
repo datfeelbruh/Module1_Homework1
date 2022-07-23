@@ -67,7 +67,7 @@ public class Homework2 {
     // Задача №1
     public static void printNumbersWithA() {
         for (int i = 1; i <= 100; i++) {
-            System.out.println(i + "a");
+            System.out.print(i + "a ");
         }
     }
 
@@ -101,7 +101,7 @@ public class Homework2 {
     // Продвинутый уровень
     // Задача №1
     public static void sumCountUntilMillion(double increment, double result) {
-        if (increment <= 0) {
+        if (result < 0) {
             return;
         }
         int count = 0;
