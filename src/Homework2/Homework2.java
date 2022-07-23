@@ -101,11 +101,11 @@ public class Homework2 {
     // Продвинутый уровень
     // Задача №1
     public static void sumCountUntilMillion(double increment, double result) {
+        if (increment < 0) {
+            return;
+        }
         int count = 0;
         while (result < 1_000_000) {
-            if (result < 0) {
-                return;
-            }
             result += increment;
             count++;
         }
