@@ -13,8 +13,7 @@ class Homework2Expert {
 
     public static void main(String[] args) {
         Map<Integer, Map<String, String[]>> data = GeneratorExpertHomework.getData();
-        Map<Integer, Map<String, String[]>> data1 = GeneratorExpertHomework.getData();
-        for (Map.Entry<Integer, Map<String, String[]>> dataEntry : data1.entrySet()) {
+        for (Map.Entry<Integer, Map<String, String[]>> dataEntry : data.entrySet()) {
             Map<String, String[]> regionInOut = dataEntry.getValue();
             getRegionAutoNumber(regionInOut);
         }
