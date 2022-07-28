@@ -29,9 +29,8 @@ public class Homework3 {
         File report = new File("report.txt");
         report.createNewFile();
         try (Writer writer = new FileWriter(report)) {
-            writer.write("Базовый уровень\nЗадача №3\n");
             writer.write("доходы = " + finRec.getIncome() + ", ");
-            writer.write("расходы = " + finRec.getOutcome());
+            writer.write("расходы = " + finRec.getOutcome() + "\n");
             writer.flush();
         }
 
@@ -59,12 +58,11 @@ public class Homework3 {
         for (int i = 0; i < 10; i++) {
             finRecords[i] = new FinancialRecord(random.nextInt(10000), random.nextInt(10000));
         }
-        try (Writer writer = new FileWriter(report, true)) {
-            writer.write("\n\nПродвинутый уровень\nЗадача №2\n");
-            for (int i = 0; i < finRecords.length; i++) {
-                int income = finRecords[i].getIncome();
-                int outcome = finRecords[i].getOutcome();
-                writer.write(i + " доходы = " + income + ", расходы = " + outcome + "\n");
+        try (Writer writer = new FileWriter(report)) {
+            for (FinancialRecord fr : finRecords) {
+                int income = fr.getIncome();
+                int outcome = fr.getOutcome();
+                writer.write("доходы = " + income + ", расходы = " + outcome + "\n");
             }
             writer.flush();
         }
@@ -73,10 +71,8 @@ public class Homework3 {
         try (BufferedReader br = new BufferedReader(new FileReader(report))) {
             while(br.ready()) {
                 String fileLine = br.readLine();
-                if (fileLine.matches("^\\d.+")) {
-                    allIncome += Integer.parseInt(fileLine.substring(fileLine.indexOf("=") + 2, fileLine.indexOf(",")));
-                    allOutcome += Integer.parseInt(fileLine.substring(fileLine.lastIndexOf("=") + 2));
-                }
+                allIncome += Integer.parseInt(fileLine.substring(fileLine.indexOf("=") + 2, fileLine.indexOf(",")));
+                allOutcome += Integer.parseInt(fileLine.substring(fileLine.lastIndexOf("=") + 2));
             }
         }
         System.out.println("общие доходы - " + allIncome + "," + " общие расходы - " + allOutcome);
