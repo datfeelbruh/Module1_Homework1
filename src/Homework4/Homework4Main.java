@@ -40,7 +40,7 @@ public class Homework4Main {
             try {
                 elem.fly();
             } catch (FlyException e) {
-                System.out.println("Ошибка: " + e.getMsg());
+                System.out.println("Ошибка " + e.getMessage());
             }
         }
 
