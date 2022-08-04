@@ -1,9 +1,9 @@
-package Homework4;
+package Homework4.Basic;
 
 public class Duck implements Flying {
-    boolean isInjured;
+    private final boolean isInjured;
 
-    Duck(boolean isInjured) {
+    public Duck(boolean isInjured) {
         this.isInjured = isInjured;
     }
     @Override

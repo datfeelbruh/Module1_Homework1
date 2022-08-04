@@ -1,5 +1,15 @@
 package Homework4;
 
+import Homework4.Advanced1.*;
+import Homework4.Advanced2.*;
+import Homework4.Basic.Airplane;
+import Homework4.Basic.Duck;
+import Homework4.Basic.FlyException;
+import Homework4.Basic.Flying;
+import Homework4.Expert1.Human;
+import Homework4.Expert2.Car;
+import Homework4.Expert2.CarShop;
+
 public class Homework4Main {
     public static void main(String[] args) {
         //Базовый уровень
@@ -24,6 +34,7 @@ public class Homework4Main {
         // Ошибка: утка ранена
         // самолет летит
         // Ошибка: пассажиров в самолете меньше 0
+
         Flying[] flyings = {new Airplane(0), new Duck(false), new Airplane(10), new Duck(true)};
         for (Flying elem : flyings) {
             try {
@@ -32,5 +43,98 @@ public class Homework4Main {
                 System.out.println("Ошибка: " + e.getMsg());
             }
         }
+
+        //Продвинутый уровень
+        //Задача №1
+        //1. Создать следующую структуру из классов и интерфейсов:
+        // дерево -> ель (имеет шишки, умеет пахнуть)
+        // дерево -> сосна (имеет шишки, умеет пахнуть)
+        // растение -> роза (умеет цвести, умеет пахнуть)
+        // растение -> папоротник (умеет цвести)
+        // Создать у каждого класса по объекту, распределить по массивам интерфейсов
+        // И у каждого массива вызвать характерный метод
+        //Ожидание:
+        // сосна : умеет пахнуть
+        // ель : умееть пахнуть
+        // роза: умееть пахнуть
+        // роза: умеет цвести
+        // папоротник: умеет цвести
+
+        Smelling[] smellings = {new Spruce(), new Pine(), new Rose()};
+        Blooming[] bloomings = {new Rose(), new Fern()};
+        for (Smelling element : smellings) {
+            element.smell();
+        }
+        for (Blooming element : bloomings) {
+            element.bloom();
+        }
+
+
+        //Задача №2
+        //2. Создать следующую структуру из классов и интерфейсов
+        // магазин (обладает работниками)
+        // работник (обладает часами - (часы одни))
+        // часы (умеют тикать, если сломаны выкидывают ошибку WatchBrokenError)
+        // Бренд (обладает массивом магазинов)
+        // Создать бренд, положить в него два магазина, в каждом магазине будет по работнику,
+        // у каждого работника по часам. У одного работника часы сломаны, у второго нет.
+        // После создания бренда, вытащить из него все часы и вызвать у всех часов метод тикать,
+        // обработать ошибку сломанных часов.
+        // Ожидание вывода на экран:
+        // Часы тикают
+        // Ошибка: Часы сломались.
+        Worker worker1 = new Worker(new Watch(true));
+        Worker worker2 = new Worker(new Watch(false));
+        Shop shop1 = new Shop(new Worker[]{worker1, worker2});
+        Shop shop2 = new Shop(new Worker[]{worker1, worker2});
+        Brand brand = new Brand(new Shop[]{shop1, shop2});
+        for (Shop shop : brand.getBrandShops()) {
+            for (Worker worker : shop.getShopWorkers()) {
+                try {
+                    worker.getWorkerWatch().tick();
+                } catch (WatchBrokenError e) {
+                    System.out.println("Ошибка: " + e.getMsg());
+                }
+            }
+        }
+
+
+        //Экспертный уровень:
+        //Задача №1
+        // Реализовать шаблон Builder для класса Human (атрибуты - возраст, имя, вес. Метод: инфо о человеке):
+        // Для этого шаблона характерно:
+        // 1. приватный конструктор,
+        // 2. вложенный статический класс (HumanBuilder)
+        // 3. статический метод builder() у Human, который возврашает экземпляр типа HumanBuilder.
+        // Во время инициализации HumanBuilder, создается объект класса Human, и записывается в приватный атрибут.
+        // 4. Класс HumanBuilder имеет методы, которые имеют тоже самое название, что и атрибуты класса Human,
+        // которые вызывают сеттеры у экземпляра класса Human.
+        // 5. HumanBuilder имеет метод build, который возвращает готовый объект типа Human.
+        // Ожидаемый результат
+        // Human human = Human.builder().name("Петр").age(20).weight(80).build();
+        // human.info()
+        // Петр - возраст 20, вес 80
+        Human human = Human.builder().name("Пётр").age(20).weight(55.8).build();
+        human.info();
+        //Задача №2
+        // Реализовать паттерн Decorator для класса Car (атрибут - стоимость, метод - вывести на экран стоимость).
+        // Метод вывести на экран стоимость - выкидывает ошибку, если стоимость меньше 0
+        // Для этого шаблона характерно:
+        // 1. Класс основа (Car), и класс декоратор (CarShop), который принимает в себя экземпляр класса основы
+        // 2. Вызов всех методов происходит у декоратора
+        // Необходимо вызвать у декоратора метод продать машину, который выведет на экран для машины со стоимостью 5000
+        // Здравствуй клиент, цена этого авто (Вызвано из объекта CarShop):
+        // 5000 - (вызванно из объекта Car)
+        // Хочешь купить авто? (Вызвано из объекта CarShop)
+
+        // Если стоимость машины меньше нуля:
+        // Здравствуй клиент, цена этого авто (Вызвано из объекта CarShop):
+        // Неизвестна мне - (вызванно из объекта Car)
+        // Давайте посмотрим другое авто? (Вызвано из объекта CarShop)
+        CarShop carShop = new CarShop(new Car(6000));
+        carShop.sellCar();
+
+        CarShop carShop1 = new CarShop(new Car(-1));
+        carShop1.sellCar();
     }
 }

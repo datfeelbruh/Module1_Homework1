@@ -1,9 +1,9 @@
-package Homework4;
+package Homework4.Advanced2;
 
-public class FlyException extends Exception {
+public class WatchBrokenError extends Exception {
     private final String msg;
 
-    FlyException(String msg) {
+    WatchBrokenError(String msg) {
         this.msg = msg;
     }
 

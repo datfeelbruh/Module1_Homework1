@@ -1,9 +1,9 @@
-package Homework4;
+package Homework4.Basic;
 
 public class Airplane implements Flying {
-    int countPassengers;
+    private final int countPassengers;
 
-    Airplane(int count) {
+    public Airplane(int count) {
         this.countPassengers = count;
     }
     @Override
