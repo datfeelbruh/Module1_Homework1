@@ -21,10 +21,9 @@ public class CarShop {
         greetings();
         if (car.getCarPrice() < 0) {
             System.out.println("Неизвестна мне");
-            question();
         } else {
             System.out.println(car.getCarPrice());
-            question();
         }
+        question();
     }
 }
